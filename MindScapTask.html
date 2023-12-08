@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    form {
+      max-width: 300px;
+      width: 90%;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background-color: #ffffff;
+      display: none;
+      position: relative;
+    }
+
+    form.active {
+      display: block;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+    }
+
+    button {
+      width: 100%;
+      background-color: #4caf50;
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    a {
+      color: #3498db;
+    }
+  </style>
+  <script>
+    function toggleForm() {
+      var signupForm = document.getElementById('signupForm');
+      var loginForm = document.getElementById('loginForm');
+
+      signupForm.classList.toggle('active');
+      loginForm.classList.toggle('active');
+    }
+
+    function validateForm() {
+      var username = document.forms['authForm']['username'].value;
+      var password = document.forms['authForm']['password'].value;
+
+      // Reset previous error messages
+      document.getElementById('emailError').innerText = '';
+      document.getElementById('passwordError').innerText = '';
+
+      // Basic email validation using a regular expression
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(username)) {
+        document.getElementById('emailError').innerText = 'Please enter a valid email address';
+        return false;
+      }
+
+      // Basic password validation (at least 6 characters)
+      if (password.length < 6) {
+        document.getElementById('passwordError').innerText = 'Password should be at least 6 characters long';
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <form id="signupForm" class="active" name="authForm" onsubmit="return validateForm()">
+    <h2>Sign Up</h2>
+    <label for="username">Email:</label>
+    <input type="text" id="username" name="username" required>
+    <div class="error-message" id="emailError"></div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <div class="error-message" id="passwordError"></div>
+    <button type="submit">Sign Up</button>
+    <p>Already have an account? <a href="javascript:void(0);" onclick="toggleForm()">Log In</a></p>
+  </form>
+
+  <form id="loginForm" name="authForm" onsubmit="return validateForm()">
+    <h2>Log In</h2>
+    <label for="username">Email:</label>
+    <input type="text" id="username" name="username" required>
+    <div class="error-message" id="emailError"></div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <div class="error-message" id="passwordError"></div>
+    <button type="submit">Log In</button>
+    <p>Don't have an account? <a href="javascript:void(0);" onclick="toggleForm()">Sign Up</a></p>
+  </form>
+</body>
+</html>
+
